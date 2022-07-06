@@ -1,3 +1,15 @@
-export default function ChoicePage() {
-  return <h1> Maybe this section will be</h1>;
+import { Outlet, NavLink } from 'react-router-dom';
+
+export default function HomePage() {
+  return (
+    <>
+      <nav>
+        <NavLink to='/'>Home</NavLink>
+        <NavLink to='add'>Add Student</NavLink>
+      </nav>
+      <section className='main-content-container'>
+        <Outlet />
+      </section>
+    </>
+  );
 }
