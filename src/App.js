@@ -5,7 +5,7 @@ import { onValue, ref, set } from 'firebase/database';
 
 import HomePage from './pages/HomePage';
 import CreateGroup from './pages/CreateGroup';
-import InformationPage from './pages/InformationPage';
+import StartCreate from './pages/StartCreate';
 import './App.scss';
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage />}>
+            <Route index element={<StartCreate />}></Route>
             <Route path='search' element={<CreateGroup />}></Route>
-            {/* <Route path='add' element={<AddPage />}></Route> */}
           </Route>
         </Routes>
       </BrowserRouter>
