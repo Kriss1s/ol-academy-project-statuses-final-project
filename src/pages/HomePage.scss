@@ -23,8 +23,10 @@ nav {
 }
 .main-content-container {
   width: 90vw;
+  height: 100%;
+  background-color: #252525;
 }
 .active {
-  border-left: 15px solid red;
+  border-left: 15px solid #2e82ed;
   transition: border-left 300ms ease-in-out;
 }
