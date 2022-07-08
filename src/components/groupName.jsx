@@ -1,4 +1,5 @@
 export default function GroupName({
+  groupNames,
   newGroup,
   setNewGroup,
   isNameError,
@@ -15,7 +16,11 @@ export default function GroupName({
         placeholder='Group Name'
         onChange={e => {
           setIsNameError(false);
-          setNewGroup({ ...newGroup, groupName: e.target.value });
+          setNewGroup({
+            ...newGroup,
+            id: (groupNames.length + 1) * 1000,
+            groupName: e.target.value,
+          });
         }}
       ></input>
       {isNameError && <p className='name-error'>Choose another name</p>}

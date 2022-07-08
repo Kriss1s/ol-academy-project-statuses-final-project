@@ -20,6 +20,7 @@ const getLocalStorage = () => {
     return JSON.parse(localStorage.getItem('currentGroup'));
   } else {
     return {
+      id: '',
       groupName: '',
       students: [],
       statuses: [
@@ -91,6 +92,7 @@ export default function CreateGroup() {
       <section className='info-box'>
         {progressStep === 1 ? (
           <GroupName
+            groupNames={groupNames}
             newGroup={newGroup}
             setNewGroup={setNewGroup}
             isNameError={isNameError}
