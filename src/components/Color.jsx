@@ -8,6 +8,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
   useEffect(() => {
     saveNewColor();
   }, [newColor]);
+
   const saveNewColor = () => {
     const newColors = [...newGroup.statuses];
     newColors.forEach(item => {
@@ -42,13 +43,13 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
           type='text'
           value={colorMeaning}
           placeholder={
-            id === 1
+            id === 100
               ? `Default`
-              : id === 2
+              : id === 200
               ? 'Check'
-              : id === 3
+              : id === 300
               ? 'Improve'
-              : id === 4
+              : id === 400
               ? 'Done'
               : ''
           }

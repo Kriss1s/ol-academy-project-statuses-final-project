@@ -9,6 +9,7 @@ import Student from '../components/Student';
 import Color from '../components/Color';
 import AddProject from '../components/AddProject';
 import Project from '../components/Project';
+import PopUp from '../components/PopUp';
 import './CreateGroup.scss';
 
 const progressSteps = 5;
@@ -22,21 +23,24 @@ const getLocalStorage = () => {
       groupName: '',
       students: [],
       statuses: [
-        { id: 1, color: '#ff5630', meaning: '' },
-        { id: 2, color: '#c7c4bf', meaning: '' },
-        { id: 3, color: '#f5c661', meaning: '' },
-        { id: 4, color: '#4fb42b', meaning: '' },
+        { id: 100, color: '#ff5630', meaning: '' },
+        { id: 200, color: '#c7c4bf', meaning: '' },
+        { id: 300, color: '#f5c661', meaning: '' },
+        { id: 400, color: '#4fb42b', meaning: '' },
       ],
       projects: [],
     };
   }
 };
 
+const clearLocalStorage = () => window.localStorage.removeItem('currentGroup');
+
 export default function CreateGroup() {
   const [newGroup, setNewGroup] = useState(getLocalStorage());
   const [progressStep, setProgressStep] = useState(1);
   const [groupNames, setGroupNames] = useState([]);
   const [isNameError, setIsNameError] = useState(false);
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
 
   useEffect(() => {
     console.log(newGroup);
@@ -80,6 +84,9 @@ export default function CreateGroup() {
     }
     setProgressStep(num);
   };
+
+  const handleSave = () => {};
+
   return (
     <section className='create-group-container'>
       <section className='info-box'>
@@ -130,7 +137,12 @@ export default function CreateGroup() {
           </>
         ) : progressStep === 5 ? (
           <>
-            <button className='btn-final'>Save This Group</button>
+            <button
+              className='btn-final'
+              onClick={() => setIsPopUpVisible(true)}
+            >
+              Save This Group
+            </button>
             <button className='btn-final'>Create New Group</button>
             <button className='btn-final'>See All Groups</button>
           </>
@@ -163,6 +175,13 @@ export default function CreateGroup() {
           <MdArrowForwardIos />
         </button>
       </div>
+      {isPopUpVisible && (
+        <PopUp
+          setIsPopUpVisible={setIsPopUpVisible}
+          clearLocalStorage={clearLocalStorage}
+          newGroup={newGroup}
+        />
+      )}
     </section>
   );
 }
