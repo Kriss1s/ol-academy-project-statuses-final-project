@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { onValue, ref, set } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
 import { MdArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
 
 import GroupName from '../components/groupName';
@@ -51,6 +51,7 @@ export default function CreateGroup() {
         setGroupNames([...Object.keys(data)]);
       }
     });
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     console.log(newGroup);
@@ -84,8 +85,6 @@ export default function CreateGroup() {
     }
     setProgressStep(num);
   };
-
-  const handleSave = () => {};
 
   return (
     <section className='create-group-container'>

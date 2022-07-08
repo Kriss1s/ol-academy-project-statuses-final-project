@@ -1,4 +1,3 @@
-import { BsPencil } from 'react-icons/bs';
 import { FaUserMinus } from 'react-icons/fa';
 export default function Project({ projectName, id, newGroup, setNewGroup }) {
   const deleteProject = () => {

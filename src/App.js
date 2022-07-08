@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import { db } from './firebase';
-import { onValue, ref, set } from 'firebase/database';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
 import CreateGroup from './pages/CreateGroup';

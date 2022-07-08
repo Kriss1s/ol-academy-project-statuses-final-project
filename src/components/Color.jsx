@@ -2,31 +2,33 @@ import { useState, useEffect } from 'react';
 export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
   const [newColor, setNewColor] = useState(color);
   const [colorMeaning, setColorMeaning] = useState(meaning);
+
   useEffect(() => {
+    const saveMeaning = () => {
+      const newMeanings = [...newGroup.statuses];
+      newMeanings.forEach(item => {
+        if (item.id === id) {
+          item.meaning = colorMeaning;
+        }
+      });
+      setNewGroup({ ...newGroup, statuses: [...newMeanings] });
+    };
     saveMeaning();
+    // eslint-disable-next-line
   }, [colorMeaning]);
   useEffect(() => {
+    const saveNewColor = () => {
+      const newColors = [...newGroup.statuses];
+      newColors.forEach(item => {
+        if (item.id === id) {
+          item.color = newColor;
+        }
+      });
+      setNewGroup({ ...newGroup, statuses: [...newColors] });
+    };
     saveNewColor();
-  }, [newColor]);
+  }, [id, newColor, newGroup, setNewGroup]);
 
-  const saveNewColor = () => {
-    const newColors = [...newGroup.statuses];
-    newColors.forEach(item => {
-      if (item.id === id) {
-        item.color = newColor;
-      }
-    });
-    setNewGroup({ ...newGroup, statuses: [...newColors] });
-  };
-  const saveMeaning = () => {
-    const newMeanings = [...newGroup.statuses];
-    newMeanings.forEach(item => {
-      if (item.id === id) {
-        item.meaning = colorMeaning;
-      }
-    });
-    setNewGroup({ ...newGroup, statuses: [...newMeanings] });
-  };
   return (
     <>
       <div className='color-wrapper'>

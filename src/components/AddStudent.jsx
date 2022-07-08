@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function AddStudent({ newGroup, setNewGroup }) {
   const [currentStudent, setCurrentStudent] = useState('');
@@ -28,7 +28,6 @@ export default function AddStudent({ newGroup, setNewGroup }) {
       <button className='student-button' onClick={addCurrentStudent}>
         add
       </button>
-      {/* {isNameError && <p className='name-error'>Choose another name</p>} */}
     </div>
   );
 }

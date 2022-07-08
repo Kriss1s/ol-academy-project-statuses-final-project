@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { onValue, ref, set } from 'firebase/database';
+import { ref, set } from 'firebase/database';
 import './PopUp.scss';
 export default function PopUp({
   setIsPopUpVisible,

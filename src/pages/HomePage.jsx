@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import './HomePage.scss';
 
 export default function HomePage() {
