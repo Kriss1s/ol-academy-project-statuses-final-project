@@ -14,7 +14,7 @@ export default function HomePage() {
           Home
         </NavLink>
         <NavLink
-          to='search'
+          to='groups'
           className={({ isActive }) =>
             isActive ? 'nav-link  active' : 'nav-link'
           }

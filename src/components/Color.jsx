@@ -27,7 +27,8 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
       setNewGroup({ ...newGroup, statuses: [...newColors] });
     };
     saveNewColor();
-  }, [id, newColor, newGroup, setNewGroup]);
+    // eslint-disable-next-line
+  }, [colorMeaning]);
 
   return (
     <>
