@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { onValue, ref, set } from 'firebase/database';
+import { BsPencil } from 'react-icons/bs';
+import { FaUserMinus } from 'react-icons/fa';
+import { MdArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
+
 import GroupName from '../components/groupName';
+import AddStudent from '../components/AddStudent';
 import './CreateGroup.scss';
 const progressSteps = ['projectName', 2, 3, 4];
 const getLocalStorage = () => {
@@ -9,7 +14,7 @@ const getLocalStorage = () => {
   if (currentGroup) {
     return JSON.parse(localStorage.getItem('currentGroup'));
   } else {
-    return { groupName: '', students: {} };
+    return { groupName: '', students: [] };
   }
 };
 
@@ -18,7 +23,7 @@ export default function CreateGroup() {
   const [progressStep, setProgressStep] = useState(1);
   const [groupNames, setGroupNames] = useState([]);
   const [isNameError, setIsNameError] = useState(false);
-  const [currentStudent, setCurrentStudent] = useState('');
+
   useEffect(() => {
     // console.log(classes);
     onValue(ref(db), snapshot => {
@@ -30,7 +35,7 @@ export default function CreateGroup() {
     });
   }, []);
   useEffect(() => {
-    console.log(Object.keys(newGroup.students));
+    console.log(newGroup);
     localStorage.setItem('currentGroup', JSON.stringify(newGroup));
   }, [newGroup]);
 
@@ -44,6 +49,8 @@ export default function CreateGroup() {
         groupNames.every(name => name !== newGroup.groupName)
           ? (num += 1)
           : setIsNameError(true);
+      } else if (num === 2) {
+        Object.keys(newGroup.students).length >= 1 && (num += 1);
       }
     }
     if (num > progressSteps.length) {
@@ -67,13 +74,18 @@ export default function CreateGroup() {
         ) : progressStep === 2 ? (
           <>
             <p>Students</p>
-            {Object.keys(newGroup.students).map((student, index) =>
-              console.log('e')
-            )}
-            <AddStudent
-              currentStudent={currentStudent}
-              setCurrentStudent={setCurrentStudent}
-            />
+            {/* {newGroup.students.length === 0 && ( */}
+            <AddStudent setNewGroup={setNewGroup} newGroup={newGroup} />
+
+            {newGroup.students.map((student, index) => (
+              <Student
+                key={student.id}
+                student={student}
+                newGroup={newGroup}
+                setNewGroup={setNewGroup}
+                index={index}
+              />
+            ))}
           </>
         ) : (
           <></>
@@ -84,7 +96,9 @@ export default function CreateGroup() {
           className={`btn-progress ${progressStep <= 1 ? 'disabled' : ''}`}
           disabled={progressStep <= 1 ? true : false}
           onClick={() => handleButtonClick('prev')}
-        >{`<`}</button>
+        >
+          <MdArrowBackIosNew className='back-btn' />
+        </button>
         <div className='progress-line-container'>
           <div
             style={{ width: `${(progressStep / progressSteps.length) * 100}%` }}
@@ -96,27 +110,33 @@ export default function CreateGroup() {
           className={`btn-progress ${progressStep >= 4 ? 'disabled' : ''}`}
           disabled={progressStep >= 4 ? true : false}
           onClick={() => handleButtonClick('next')}
-        >{`>`}</button>
+        >
+          <MdArrowForwardIos />
+        </button>
       </div>
     </section>
   );
 }
-function AddStudent({ currentStudent, setCurrentStudent }) {
+
+function Student({ student, index, setNewGroup, newGroup }) {
+  const deleteStudent = student => {
+    const newStudentList = newGroup.students.filter(
+      item => item.id !== student.id
+    );
+    console.log(student);
+    setNewGroup({ ...newGroup, students: [...newStudentList] });
+  };
   return (
-    <div className='student-name-wrapper'>
-      <input
-        className='student-name'
-        name='student-name'
-        type='text'
-        value={currentStudent}
-        placeholder='Name'
-        onChange={e => {
-          // setIsNameError(false);
-          setCurrentStudent(e.target.value);
-        }}
-      ></input>
-      <button className='student-button'>save</button>
-      {/* {isNameError && <p className='name-error'>Choose another name</p>} */}
+    <div className='student'>
+      <div>{student.name}</div>
+      <div className='btn-student-container'>
+        <button className='btn-student'>
+          <BsPencil />
+        </button>
+        <button className='btn-student' onClick={() => deleteStudent(student)}>
+          <FaUserMinus />
+        </button>
+      </div>
     </div>
   );
 }
