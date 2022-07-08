@@ -108,6 +108,66 @@
       color: #ff5630;
     }
   }
+  .color-wrapper {
+    width: 100%;
+    height: 13%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4%;
+    .color {
+      border-radius: 50%;
+      width: 4em;
+      height: 4em;
+
+      border: none;
+      outline: none;
+      margin-right: 5%;
+      //
+      &::-webkit-color-swatch {
+        border: none;
+        border-radius: 50%;
+      }
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+        border: none;
+      }
+    }
+    .color-meaning {
+      width: 40%;
+      border: none;
+      color: inherit;
+      background-color: transparent;
+      border-bottom: 2px solid #2e82ed;
+      transition: border-radius 300ms ease-in-out;
+      padding-left: 2%;
+      &:focus,
+      &:active {
+        outline: none;
+        border: 2px solid #2e82ed;
+        border-left: none;
+        border-radius: 0 50px 50px 0;
+      }
+    }
+  }
+  .btn-final {
+    width: 60%;
+    height: 20%;
+    font-size: 1.05em;
+    background-color: transparent;
+    color: #2e82ed;
+    border: 2px solid #2e82ed;
+    margin-bottom: 5%;
+    border-radius: 50px;
+    transition: all 300ms ease-in-out;
+    &:hover {
+      cursor: pointer;
+      background-color: #2e82ed;
+      color: white;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 
   .progress {
     width: 40%;

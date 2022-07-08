@@ -1,20 +1,34 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { onValue, ref, set } from 'firebase/database';
-import { BsPencil } from 'react-icons/bs';
-import { FaUserMinus } from 'react-icons/fa';
 import { MdArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
 
 import GroupName from '../components/groupName';
 import AddStudent from '../components/AddStudent';
+import Student from '../components/Student';
+import Color from '../components/Color';
+import AddProject from '../components/AddProject';
+import Project from '../components/Project';
 import './CreateGroup.scss';
-const progressSteps = ['projectName', 2, 3, 4];
+
+const progressSteps = 5;
+
 const getLocalStorage = () => {
   let currentGroup = localStorage.getItem('currentGroup');
   if (currentGroup) {
     return JSON.parse(localStorage.getItem('currentGroup'));
   } else {
-    return { groupName: '', students: [] };
+    return {
+      groupName: '',
+      students: [],
+      statuses: [
+        { id: 1, color: '#ff5630', meaning: '' },
+        { id: 2, color: '#c7c4bf', meaning: '' },
+        { id: 3, color: '#f5c661', meaning: '' },
+        { id: 4, color: '#4fb42b', meaning: '' },
+      ],
+      projects: [],
+    };
   }
 };
 
@@ -25,7 +39,7 @@ export default function CreateGroup() {
   const [isNameError, setIsNameError] = useState(false);
 
   useEffect(() => {
-    // console.log(classes);
+    console.log(newGroup);
     onValue(ref(db), snapshot => {
       const data = snapshot.val();
       console.log(Object.keys(data));
@@ -50,11 +64,16 @@ export default function CreateGroup() {
           ? (num += 1)
           : setIsNameError(true);
       } else if (num === 2) {
-        Object.keys(newGroup.students).length >= 1 && (num += 1);
+        newGroup.students.length >= 1 && (num += 1);
+      } else if (num === 3) {
+        Object.values(newGroup.statuses).every(item => item.meaning !== '') &&
+          (num += 1);
+      } else if (num === 4) {
+        newGroup.projects.length >= 1 && (num += 1);
       }
     }
-    if (num > progressSteps.length) {
-      num = progressSteps.length;
+    if (num > progressSteps) {
+      num = progressSteps;
     }
     if (num < 1) {
       num = 1;
@@ -87,6 +106,34 @@ export default function CreateGroup() {
               />
             ))}
           </>
+        ) : progressStep === 3 ? (
+          <>
+            {newGroup.statuses.map(chooseColor => (
+              <Color
+                {...chooseColor}
+                newGroup={newGroup}
+                setNewGroup={setNewGroup}
+              />
+            ))}
+          </>
+        ) : progressStep === 4 ? (
+          <>
+            <p>Projects</p>
+            <AddProject setNewGroup={setNewGroup} newGroup={newGroup} />
+            {newGroup.projects.map(project => (
+              <Project
+                {...project}
+                newGroup={newGroup}
+                setNewGroup={setNewGroup}
+              />
+            ))}
+          </>
+        ) : progressStep === 5 ? (
+          <>
+            <button className='btn-final'>Save This Group</button>
+            <button className='btn-final'>Create New Group</button>
+            <button className='btn-final'>See All Groups</button>
+          </>
         ) : (
           <></>
         )}
@@ -101,42 +148,21 @@ export default function CreateGroup() {
         </button>
         <div className='progress-line-container'>
           <div
-            style={{ width: `${(progressStep / progressSteps.length) * 100}%` }}
+            style={{ width: `${(progressStep / progressSteps) * 100}%` }}
             className='progress-line'
           ></div>
         </div>
-        <span>{(progressStep / progressSteps.length) * 100}%</span>
+        <span>{(progressStep / progressSteps) * 100}%</span>
         <button
-          className={`btn-progress ${progressStep >= 4 ? 'disabled' : ''}`}
-          disabled={progressStep >= 4 ? true : false}
+          className={`btn-progress ${
+            progressStep >= progressSteps ? 'disabled' : ''
+          }`}
+          disabled={progressStep >= progressSteps ? true : false}
           onClick={() => handleButtonClick('next')}
         >
           <MdArrowForwardIos />
         </button>
       </div>
     </section>
-  );
-}
-
-function Student({ student, index, setNewGroup, newGroup }) {
-  const deleteStudent = student => {
-    const newStudentList = newGroup.students.filter(
-      item => item.id !== student.id
-    );
-    console.log(student);
-    setNewGroup({ ...newGroup, students: [...newStudentList] });
-  };
-  return (
-    <div className='student'>
-      <div>{student.name}</div>
-      <div className='btn-student-container'>
-        <button className='btn-student'>
-          <BsPencil />
-        </button>
-        <button className='btn-student' onClick={() => deleteStudent(student)}>
-          <FaUserMinus />
-        </button>
-      </div>
-    </div>
   );
 }
