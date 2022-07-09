@@ -14,9 +14,8 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />}>
             <Route index element={<StartCreate />}></Route>
-            <Route path='groups' element={<AllGroups />}>
-              <Route path=':groupsId' element={<Group />}></Route>
-            </Route>
+            <Route path='groups' element={<AllGroups />}></Route>
+            <Route path='groups/:groupsId' element={<Group />}></Route>
             <Route path='search' element={<CreateGroup />}></Route>
           </Route>
         </Routes>

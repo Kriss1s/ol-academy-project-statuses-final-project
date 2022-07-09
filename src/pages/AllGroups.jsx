@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
 import './AllGroups.scss';
 
 export default function AllGroups() {
+  const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
   useEffect(() => {
     onValue(ref(db), snapshot => {
@@ -20,13 +21,16 @@ export default function AllGroups() {
   return (
     <div className='projects-container'>
       {groups.map(group => (
-        <Link
+        <div
           className='group-container'
           key={group.id}
-          to={`/groups/${group.id}`}
+          //   to={`${group.id}`}
+          onClick={() => {
+            navigate(`${group.groupName}`);
+          }}
         >
           {group.groupName}
-        </Link>
+        </div>
       ))}
     </div>
   );
