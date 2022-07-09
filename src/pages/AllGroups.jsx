@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
 import './AllGroups.scss';

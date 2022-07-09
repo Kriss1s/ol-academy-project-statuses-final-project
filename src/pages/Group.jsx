@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
-import { onValue, ref, set } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
+import Circle from '../components/Circle';
 import './Group.scss';
 export default function Group() {
+  const [isLoading, setIsLoading] = useState(true);
   const [currentGroup, setCurrentGroup] = useState({});
   let params = useParams();
   useEffect(() => {
@@ -14,8 +16,15 @@ export default function Group() {
         setCurrentGroup({ ...data });
       }
     });
-    console.log(currentGroup.students);
+    // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [currentGroup]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className='wrapper'>
       <ul className='table'>
@@ -25,24 +34,21 @@ export default function Group() {
             <div className='project-name'>{project.projectName}</div>
           ))}
         </li>
-        {currentGroup?.students?.map(student => {
+        {currentGroup?.students?.map((student, studentIndex) => {
           const { name: studentName, projects: studentProjects } = student;
           return (
             <li className='table-row'>
               <div className='table-row-element'>{studentName}</div>
-              {studentProjects.map(singleProject => (
+              {studentProjects.map((singleProject, projectIndex) => (
                 <div className='table-row-element'>
-                  <div
-                    className='circle'
-                    style={{
-                      backgroundColor: `${
-                        currentGroup.statuses.find(
-                          singleColor =>
-                            singleColor.id === singleProject.statusId
-                        ).color
-                      }`,
-                    }}
-                  ></div>
+                  <Circle
+                    params={params}
+                    index={studentIndex}
+                    projectIndex={projectIndex}
+                    statuses={currentGroup.statuses}
+                    {...singleProject}
+                    currentGroup={currentGroup}
+                  />
                 </div>
               ))}
             </li>
