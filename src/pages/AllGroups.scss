@@ -1,11 +1,14 @@
 .projects-container {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
 
   .group-container {
     background: black;
+    text-align: center;
     width: 90%;
     height: 80%;
     border-radius: 15px;
@@ -20,5 +23,15 @@
     &:hover {
       background-color: rgba(46, 130, 236);
     }
+  }
+}
+@media (min-width: 482px) and (max-width: 1024px) {
+  .projects-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 481px) {
+  .projects-container {
+    grid-template-columns: 1fr;
   }
 }

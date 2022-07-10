@@ -24,7 +24,6 @@ export default function AllGroups() {
         <div
           className='group-container'
           key={group.id}
-          //   to={`${group.id}`}
           onClick={() => {
             navigate(`${group.groupName}`);
           }}

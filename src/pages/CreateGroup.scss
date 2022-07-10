@@ -1,6 +1,7 @@
 .create-group-container {
   width: 80%;
-  height: 80%;
+  min-height: 100vh;
+  padding: 5% 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,8 +9,8 @@
 
   .info-box {
     width: 60%;
-    min-height: 60%;
-    padding: 2% 0;
+    min-height: 60vh;
+    padding: 2vh 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +23,7 @@
       margin-top: 10%;
       border: none;
       width: 40%;
-      height: 15%;
+      height: 6vh;
       padding: 0 2%;
       background-color: transparent;
       border-bottom: 2px solid #2e82ed;
@@ -41,7 +42,7 @@
       align-items: center;
       justify-content: space-between;
       background-color: #2e82ed;
-      width: 30%;
+      width: 50%;
       margin: 1% 0;
       padding: 0 2%;
       height: 2em;
@@ -52,7 +53,7 @@
         justify-content: space-between;
         .btn-student {
           font-size: 0.9em;
-          width: 45%;
+          width: 50%;
           height: 100%;
           border: none;
           background-color: transparent;
@@ -66,12 +67,11 @@
       justify-content: center;
 
       width: 90%;
-      height: 15%;
+      height: 7vh;
       margin: 5% 0;
 
       .student-name {
-        margin: 0 0 0 3%;
-        width: 40%;
+        width: 45%;
         border: none;
         color: inherit;
         background-color: transparent;
@@ -151,7 +151,7 @@
   }
   .btn-final {
     width: 60%;
-    height: 20%;
+    height: 8vh;
     font-size: 1.05em;
     background-color: transparent;
     color: #2e82ed;
@@ -211,11 +211,85 @@
         color: white;
       }
     }
-    // .back-btn {
-    //   transform: translateX(25%);
-    // }
+
     .disabled {
       cursor: not-allowed;
+      color: #2e81ed66;
+      border-color: #2e82ed66;
+    }
+  }
+}
+@media (min-width: 482px) and (max-width: 1024px) {
+  .create-group-container {
+    .info-box {
+      width: 80%;
+      .student {
+        background-color: #2e82ed;
+        width: 60%;
+        padding-left: 5%;
+      }
+      .student-name-wrapper {
+        width: 100%;
+        height: 6vh;
+        .student-button {
+          width: 20%;
+        }
+      }
+      .color-wrapper {
+        .color-meaning {
+          width: 50%;
+        }
+      }
+    }
+
+    .progress {
+      width: 80%;
+
+      .progress-line-container {
+        width: 60%;
+      }
+    }
+  }
+}
+@media (max-width: 481px) {
+  .create-group-container {
+    .info-box {
+      width: 100%;
+      .student {
+        background-color: #2e82ed;
+        width: 60%;
+        padding-left: 5%;
+        .btn-student-container {
+          .btn-student {
+            width: 55%;
+          }
+        }
+      }
+      .student-name-wrapper {
+        width: 100%;
+        height: 6vh;
+        .student-button {
+          width: 20%;
+        }
+        .student-name {
+          width: 50%;
+        }
+      }
+      .color-wrapper {
+        .color {
+          margin-right: 5%;
+        }
+        .color-meaning {
+          width: 60%;
+        }
+      }
+    }
+    .progress {
+      width: 90%;
+
+      .progress-line-container {
+        width: 60%;
+      }
     }
   }
 }

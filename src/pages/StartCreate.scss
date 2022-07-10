@@ -16,3 +16,14 @@
     background-color: rgba(46, 130, 236, 0.5);
   }
 }
+
+@media (min-width: 482px) and (max-width: 1024px) {
+  .start-button {
+    width: 50%;
+  }
+}
+@media (max-width: 481px) {
+  .start-button {
+    width: 80%;
+  }
+}
