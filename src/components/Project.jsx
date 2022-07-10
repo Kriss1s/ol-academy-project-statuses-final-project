@@ -1,4 +1,5 @@
-import { FaUserMinus } from 'react-icons/fa';
+import { FaMinus } from 'react-icons/fa';
+
 export default function Project({ projectName, id, newGroup, setNewGroup }) {
   const deleteProject = () => {
     const newProjectList = newGroup.projects.filter(item => item.id !== id);
@@ -10,7 +11,7 @@ export default function Project({ projectName, id, newGroup, setNewGroup }) {
       <div>{projectName}</div>
       <div className='btn-student-container'>
         <button className='btn-student' onClick={() => deleteProject()}>
-          <FaUserMinus />
+          <FaMinus />
         </button>
       </div>
     </div>
