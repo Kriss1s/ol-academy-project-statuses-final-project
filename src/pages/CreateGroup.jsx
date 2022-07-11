@@ -47,7 +47,7 @@ export default function CreateGroup() {
     console.log(newGroup);
     onValue(ref(db), snapshot => {
       const data = snapshot.val();
-      console.log(Object.keys(data));
+      // console.log(Object.keys(data));
       if (data !== null) {
         setGroupNames([...Object.keys(data)]);
       }
@@ -118,6 +118,7 @@ export default function CreateGroup() {
           <>
             {newGroup.statuses.map(chooseColor => (
               <Color
+                key={chooseColor.id}
                 {...chooseColor}
                 newGroup={newGroup}
                 setNewGroup={setNewGroup}
@@ -130,6 +131,7 @@ export default function CreateGroup() {
             <AddProject setNewGroup={setNewGroup} newGroup={newGroup} />
             {newGroup.projects.map(project => (
               <Project
+                key={project.id}
                 {...project}
                 newGroup={newGroup}
                 setNewGroup={setNewGroup}
@@ -144,8 +146,6 @@ export default function CreateGroup() {
             >
               Save This Group
             </button>
-            <button className='btn-final'>Create New Group</button>
-            <button className='btn-final'>See All Groups</button>
           </>
         ) : (
           <></>
@@ -163,9 +163,11 @@ export default function CreateGroup() {
           <div
             style={{ width: `${(progressStep / progressSteps) * 100}%` }}
             className='progress-line'
-          ></div>
+          >
+            <span>{(progressStep / progressSteps) * 100}%</span>
+          </div>
         </div>
-        <span>{(progressStep / progressSteps) * 100}%</span>
+
         <button
           className={`btn-progress ${
             progressStep >= progressSteps ? 'disabled' : ''

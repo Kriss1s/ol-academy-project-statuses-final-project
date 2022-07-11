@@ -8,23 +8,112 @@
 
   .group-container {
     background: black;
-    text-align: center;
-    width: 90%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding: 3%;
+    width: 60%;
     height: 80%;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     font-size: 1.5em;
     box-shadow: 1px 1px 10px rgba(46, 130, 236, 0.5);
     text-decoration: none;
     color: white;
     cursor: pointer;
+
+    .shine {
+      width: 100%;
+      min-height: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      padding: 20px;
+      // opacity: 0.1;
+      padding-bottom: 10px;
+      background: none;
+      transform: translateY(-100%);
+      transition: 0.3s;
+      &:after {
+        content: '';
+        position: absolute;
+        z-index: 10;
+        width: 200%;
+        height: 100%;
+        top: -90%;
+        left: -20px;
+        opacity: 0.1;
+        transform: rotate(45deg);
+        background: linear-gradient(
+          to top,
+          transparent,
+          #fff 15%,
+          rgba(#fff, 0.5)
+        );
+        transition: 0.3s;
+      }
+    }
+
     &:hover {
-      background-color: rgba(46, 130, 236);
+      // background-color: rgba(46, 130, 236);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: 1px 1px 10px 3px rgba(13, 45, 85, 0.8);
+      transform: translateY(-3px) scale(1.05) rotateX(15deg);
+      .shine {
+        transform: none;
+        opacity: 0.5;
+        &:after {
+          transform: rotate(25deg);
+          top: -40%;
+          opacity: 0.15;
+        }
+      }
+    }
+
+    h3 {
+      font-size: 1.5em;
+      border-bottom: 2px solid rgba(46, 130, 236);
+    }
+    p {
+      margin-bottom: 4%;
+      font-size: 0.9em;
+    }
+    div {
+      display: flex;
+      .color-show {
+        width: 2rem;
+        height: 2rem;
+        // border-radius: 50%;
+      }
+    }
+
+    .btn-delete {
+      margin-top: 8%;
+      width: 50%;
+      height: 10%;
+      color: white;
+      background-color: transparent;
+      border-radius: 10px;
+      border: 1px solid rgba(46, 130, 236);
+      box-shadow: 1px 1px 10px rgba(46, 130, 236, 0.5);
+      z-index: 9999;
+      transition: all 300ms ease-in-out;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(46, 130, 236);
+      }
     }
   }
 }
+
 @media (min-width: 482px) and (max-width: 1024px) {
   .projects-container {
     grid-template-columns: 1fr 1fr;
