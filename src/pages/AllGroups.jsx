@@ -11,8 +11,8 @@ export default function AllGroups() {
 
   const deleteGroup = (e, currentGroup) => {
     e.stopPropagation();
-
-    remove(ref(db, `${currentGroup.groupName}`));
+    const nameId = currentGroup.groupName.split(' ').join('').toLowerCase();
+    remove(ref(db, `${nameId}`));
     if (groups.length <= 1) {
       setGroups([]);
     }
