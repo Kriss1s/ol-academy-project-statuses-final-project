@@ -39,7 +39,11 @@ export default function AllGroups() {
               className='group-container'
               key={group.id}
               onClick={() => {
-                navigate(`${group.groupName}`);
+                const nameId = group.groupName
+                  .split(' ')
+                  .join('')
+                  .toLowerCase();
+                navigate(`${nameId}`);
               }}
             >
               <div className='shine'></div>

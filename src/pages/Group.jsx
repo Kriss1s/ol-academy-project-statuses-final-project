@@ -9,25 +9,28 @@ export default function Group() {
   const [currentGroup, setCurrentGroup] = useState({});
   let params = useParams();
   useEffect(() => {
+    console.log(params.groupsId);
     onValue(ref(db, `${params.groupsId}/`), snapshot => {
       const data = snapshot.val();
       console.log(data);
       if (data !== null) {
+        setIsLoading(false);
         setCurrentGroup({ ...data });
       }
     });
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, [currentGroup]);
+  // useEffect(() => {
+  //   console.log(currentGroup);
+  //   // setIsLoading(false);
+  // }, [currentGroup]);
   if (isLoading) {
     return <div>Loading...</div>;
   }
   return (
     <div className='wrapper'>
-      <div className='statuses'>
+      <div div className='statuses'>
         {Object.values(currentGroup.statuses).map(singleColor => (
           <div className='color-meaning-wrappers'>
             <div
@@ -55,7 +58,7 @@ export default function Group() {
               {studentProjects.map((singleProject, projectIndex) => (
                 <div className='table-row-element'>
                   <Circle
-                    params={params}
+                    params={params.groupsId}
                     index={studentIndex}
                     projectIndex={projectIndex}
                     statuses={currentGroup.statuses}

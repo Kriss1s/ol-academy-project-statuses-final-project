@@ -34,9 +34,10 @@ export default function PopUp({
     });
 
     const currentGroup = { ...newGroup, students };
+    const newName = currentGroup.groupName.split(' ').join('').toLowerCase();
     console.log(currentGroup);
 
-    set(ref(db, `${currentGroup.groupName}/`), currentGroup);
+    set(ref(db, `${newName}/`), currentGroup);
     clearLocalStorage();
     setIsPopUpVisible(false);
     navigate('/');

@@ -66,7 +66,9 @@ export default function CreateGroup() {
     } else if (direction === 'next') {
       if (num === 1) {
         newGroup.groupName &&
-        groupNames.every(name => name !== newGroup.groupName)
+        groupNames.every(
+          name => name !== newGroup.groupName.split(' ').join('').toLowerCase()
+        )
           ? (num += 1)
           : setIsNameError(true);
       } else if (num === 2) {
