@@ -6,6 +6,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
   useEffect(() => {
     const saveMeaning = () => {
       const newMeanings = [...newGroup.statuses];
+      console.log(newMeanings);
       newMeanings.forEach(item => {
         if (item.id === id) {
           item.meaning = colorMeaning;
@@ -19,6 +20,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
   useEffect(() => {
     const saveNewColor = () => {
       const newColors = [...newGroup.statuses];
+      console.log(newColors);
       newColors.forEach(item => {
         if (item.id === id) {
           item.color = newColor;
@@ -28,7 +30,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
     };
     saveNewColor();
     // eslint-disable-next-line
-  }, [colorMeaning]);
+  }, [newColor]);
 
   return (
     <>
@@ -38,6 +40,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
           type='color'
           value={newColor}
           onChange={e => {
+            // console.log(id);
             setNewColor(e.target.value);
           }}
         />

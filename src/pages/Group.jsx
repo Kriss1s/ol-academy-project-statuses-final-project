@@ -27,6 +27,19 @@ export default function Group() {
   }
   return (
     <div className='wrapper'>
+      <div className='statuses'>
+        {Object.values(currentGroup.statuses).map(singleColor => (
+          <div className='color-meaning-wrappers'>
+            <div
+              className='color-meaning'
+              style={{ backgroundColor: singleColor.color }}
+            >
+              {''}
+            </div>
+            <p>{singleColor.meaning}</p>
+          </div>
+        ))}
+      </div>
       <ul className='table'>
         <li className='table-header'>
           <div className='project-name'>{''}</div>

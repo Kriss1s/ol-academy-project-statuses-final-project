@@ -2,24 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { db } from '../firebase';
 import { ref, set } from 'firebase/database';
 
-const randomDarkColor = () => {
-  let color = '#';
-  for (let i = 0; i < 3; i++)
-    color += (
-      '0' + Math.floor((Math.random() * Math.pow(16, 2)) / 2).toString(16)
-    ).slice(-2);
-  return color;
-};
-
 export default function Circle({
   index,
   projectIndex,
   statuses,
   statusId,
-  params,
   currentGroup,
 }) {
-  const color = randomDarkColor();
   const refCircle = useRef();
   const contextMenuRef = useRef();
   const [isVisible, setIsVisible] = useState(false);
@@ -38,6 +27,7 @@ export default function Circle({
   useEffect(() => {
     const handleHideMenu = e => {
       e.preventDefault();
+      console.log(statuses.find(singleColor => singleColor.id === statusId));
       if (
         !refCircle.current?.contains(e.target) &&
         !contextMenuRef.current?.contains(e.target)
@@ -45,18 +35,19 @@ export default function Circle({
         setIsVisible(false);
       }
     };
-    const handleclick = e => {
+    const handleClick = e => {
       if (!contextMenuRef.current?.contains(e.target)) {
         setIsVisible(false);
       }
     };
     window.addEventListener('contextmenu', handleHideMenu);
-    window.addEventListener('click', handleclick);
+    window.addEventListener('click', handleClick);
 
     return () => {
       window.removeEventListener('contextmenu', handleHideMenu);
-      window.removeEventListener('click', handleclick);
+      window.removeEventListener('click', handleClick);
     };
+    // eslint-disable-next-line
   }, [refCircle]);
 
   const changeColor = id => {
@@ -88,7 +79,6 @@ export default function Circle({
             position: 'absolute',
             top: `${posXY.y}px`,
             left: `${posXY.x}px`,
-            color: `${color}`,
           }}
         >
           {statuses.map(status => (
