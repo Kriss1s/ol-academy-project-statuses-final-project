@@ -7,6 +7,7 @@ export default function Circle({
   projectIndex,
   statuses,
   statusId,
+  params,
   currentGroup,
 }) {
   const refCircle = useRef();
@@ -15,7 +16,6 @@ export default function Circle({
   const [posXY, setPosXY] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    console.log(currentGroup);
     refCircle.current.addEventListener('contextmenu', e => {
       e.preventDefault();
       setIsVisible(true);
@@ -52,10 +52,7 @@ export default function Circle({
 
   const changeColor = id => {
     set(
-      ref(
-        db,
-        `${currentGroup.groupName}/students/${index}/projects/${projectIndex}/statusId`
-      ),
+      ref(db, `${params}/students/${index}/projects/${projectIndex}/statusId`),
       id
     );
   };
