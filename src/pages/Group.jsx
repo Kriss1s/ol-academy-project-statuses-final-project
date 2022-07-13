@@ -10,6 +10,7 @@ export default function Group() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [currentGroup, setCurrentGroup] = useState({});
+
   let params = useParams();
   useEffect(() => {
     console.log(params.groupsId);
@@ -85,6 +86,7 @@ export default function Group() {
                     statuses={currentGroup.statuses}
                     {...singleProject}
                     currentGroup={currentGroup}
+                    comments={singleProject.comment}
                   />
                 </div>
               ))}

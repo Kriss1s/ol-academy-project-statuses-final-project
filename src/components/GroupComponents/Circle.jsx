@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { db } from '../../firebase';
 import { ref, set } from 'firebase/database';
+import CommentPopup from './CommentPopup';
 
 export default function Circle({
   index,
@@ -8,12 +9,15 @@ export default function Circle({
   statuses,
   statusId,
   params,
+  comments,
   currentGroup,
 }) {
-  const refCircle = useRef();
-  const contextMenuRef = useRef();
   const [isVisible, setIsVisible] = useState(false);
   const [posXY, setPosXY] = useState({ x: 0, y: 0 });
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+
+  const refCircle = useRef();
+  const contextMenuRef = useRef();
 
   useEffect(() => {
     refCircle.current.addEventListener('contextmenu', e => {
@@ -27,7 +31,7 @@ export default function Circle({
   useEffect(() => {
     const handleHideMenu = e => {
       e.preventDefault();
-      console.log(statuses.find(singleColor => singleColor.id === statusId));
+      // console.log(statuses.find(singleColor => singleColor.id === statusId));
       if (
         !refCircle.current?.contains(e.target) &&
         !contextMenuRef.current?.contains(e.target)
@@ -56,12 +60,12 @@ export default function Circle({
       id
     );
   };
-  // const addComment = id => {
-  //   set(
-  //     ref(db, `${params}/students/${index}/projects/${projectIndex}/statusId`),
-  //     id
-  //   );
-  // };
+  const addComments = text => {
+    set(
+      ref(db, `${params}/students/${index}/projects/${projectIndex}/comment`),
+      text
+    );
+  };
 
   return (
     <>
@@ -73,7 +77,20 @@ export default function Circle({
             statuses.find(singleColor => singleColor.id === statusId).color
           }`,
         }}
-      ></div>
+      >
+        {comments && (
+          <div
+            className='comment-number'
+            style={{
+              borderColor: `${
+                statuses.find(singleColor => singleColor.id === statusId).color
+              }`,
+            }}
+          >
+            {comments.length}
+          </div>
+        )}
+      </div>
       {isVisible && (
         <div
           ref={contextMenuRef}
@@ -99,7 +116,20 @@ export default function Circle({
               {status.meaning}
             </button>
           ))}
+          <button
+            className='btn-context add-comment'
+            onClick={() => setIsPopUpVisible(true)}
+          >
+            Add Comment
+          </button>
         </div>
+      )}
+      {isPopUpVisible && (
+        <CommentPopup
+          setIsPopUpVisible={setIsPopUpVisible}
+          addComments={addComments}
+          comments={comments}
+        />
       )}
     </>
   );
