@@ -2,6 +2,7 @@ import { BiHomeHeart } from 'react-icons/bi';
 import { HiUserGroup } from 'react-icons/hi';
 
 import { useEffect, useState } from 'react';
+
 import { Outlet, NavLink } from 'react-router-dom';
 import './HomePage.scss';
 

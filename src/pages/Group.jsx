@@ -4,7 +4,7 @@ import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
 
 import { BallTriangle } from 'react-loader-spinner';
-import Circle from '../components/Circle';
+import Circle from '../components/GroupComponents/Circle';
 import './Group.scss';
 export default function Group() {
   const navigate = useNavigate();
