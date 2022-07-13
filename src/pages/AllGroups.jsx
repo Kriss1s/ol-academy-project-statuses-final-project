@@ -11,11 +11,13 @@ export default function AllGroups() {
 
   const deleteGroup = (e, currentGroup) => {
     e.stopPropagation();
+
     const nameId = currentGroup.groupName.split(' ').join('').toLowerCase();
     remove(ref(db, `${nameId}`));
     if (groups.length <= 1) {
       setGroups([]);
     }
+    navigate('/groups');
   };
   useEffect(() => {
     onValue(ref(db), snapshot => {
