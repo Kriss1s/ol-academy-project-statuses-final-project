@@ -1,7 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { db } from '../../firebase';
-import { onValue, ref, set } from 'firebase/database';
+
 import './CommentPopup.scss';
 import { useState } from 'react';
 export default function CommentPopup({
@@ -12,7 +10,6 @@ export default function CommentPopup({
 }) {
   const [commentText, setCommentText] = useState('');
   const refPopup = useRef();
-  const navigate = useNavigate();
 
   const saveComment = () => {
     let text;
@@ -20,7 +17,6 @@ export default function CommentPopup({
       text = [commentText];
     } else {
       text = [...comments, commentText];
-      console.log(comments);
     }
 
     addComments(text);
