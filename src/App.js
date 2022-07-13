@@ -5,6 +5,7 @@ import CreateGroup from './pages/CreateGroup';
 import StartCreate from './pages/StartCreate';
 import AllGroups from './pages/AllGroups';
 import Group from './pages/Group';
+import ErrorPage from './pages/ErrorPage';
 import './App.scss';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
@@ -19,6 +20,7 @@ function App() {
             <Route path='groups/:groupsId' element={<Group />}></Route>
             <Route path='search' element={<CreateGroup />}></Route>
           </Route>
+          <Route path='*' exact={true} element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>
