@@ -55,7 +55,12 @@ export default function Group() {
         ))}
       </div>
       <ul className='table'>
-        <li className='table-header'>
+        <li
+          className='table-header'
+          style={{
+            width: `${100 / currentGroup.students.length}%`,
+          }}
+        >
           <div className='project-name'>{''}</div>
           {currentGroup?.projects?.map(project => (
             <div className='project-name'>{project.projectName}</div>
@@ -64,7 +69,12 @@ export default function Group() {
         {currentGroup?.students?.map((student, studentIndex) => {
           const { name: studentName, projects: studentProjects } = student;
           return (
-            <li className='table-row'>
+            <li
+              className='table-row'
+              style={{
+                width: `${100 / currentGroup.students.length}%`,
+              }}
+            >
               <div className='table-row-element'>{studentName}</div>
               {studentProjects.map((singleProject, projectIndex) => (
                 <div className='table-row-element'>
