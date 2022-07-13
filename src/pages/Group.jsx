@@ -23,10 +23,6 @@ export default function Group() {
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   console.log(currentGroup);
-  //   // setIsLoading(false);
-  // }, [currentGroup]);
   if (isLoading) {
     return (
       <>
