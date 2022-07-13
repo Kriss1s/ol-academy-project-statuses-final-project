@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
+
+import { BallTriangle } from 'react-loader-spinner';
 import Circle from '../components/Circle';
 import './Group.scss';
 export default function Group() {
@@ -26,7 +28,17 @@ export default function Group() {
   //   // setIsLoading(false);
   // }, [currentGroup]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <BallTriangle
+          height='150'
+          width='150'
+          color='#2e82ed'
+          ariaLabel='loading'
+        />
+        <p className='loader-text'>Loading...</p>
+      </>
+    );
   }
   return (
     <div className='wrapper'>

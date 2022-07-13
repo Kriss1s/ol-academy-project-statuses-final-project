@@ -56,6 +56,12 @@ export default function Circle({
       id
     );
   };
+  const addComment = id => {
+    set(
+      ref(db, `${params}/students/${index}/projects/${projectIndex}/statusId`),
+      id
+    );
+  };
 
   return (
     <>
