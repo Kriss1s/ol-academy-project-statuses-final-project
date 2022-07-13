@@ -10,7 +10,6 @@ export default function Circle({
   statusId,
   params,
   comments,
-  currentGroup,
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [posXY, setPosXY] = useState({ x: 0, y: 0 });
