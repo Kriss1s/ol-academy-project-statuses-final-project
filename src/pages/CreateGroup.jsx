@@ -3,13 +3,13 @@ import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
 import { MdArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
 
-import GroupName from '../components/groupName';
-import AddStudent from '../components/AddStudent';
-import Student from '../components/Student';
-import Color from '../components/Color';
-import AddProject from '../components/AddProject';
-import Project from '../components/Project';
-import PopUp from '../components/PopUp';
+import GroupName from '../components/CreateGroupComponents/groupName';
+import AddStudent from '../components/CreateGroupComponents/AddStudent';
+import Student from '../components/CreateGroupComponents/Student';
+import Color from '../components/CreateGroupComponents/Color';
+import AddProject from '../components/CreateGroupComponents/AddProject';
+import Project from '../components/CreateGroupComponents/Project';
+import PopUp from '../components/CreateGroupComponents/PopUp';
 import './CreateGroup.scss';
 
 const progressSteps = 5;
