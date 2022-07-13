@@ -9,7 +9,6 @@ export default function HomePage() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
-    console.log(windowSize);
     const handleResize = () => {
       setWindowSize(window.innerWidth);
     };

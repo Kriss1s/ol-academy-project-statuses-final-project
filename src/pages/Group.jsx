@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
 
@@ -7,6 +7,7 @@ import { BallTriangle } from 'react-loader-spinner';
 import Circle from '../components/Circle';
 import './Group.scss';
 export default function Group() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [currentGroup, setCurrentGroup] = useState({});
   let params = useParams();
@@ -18,6 +19,8 @@ export default function Group() {
       if (data !== null) {
         setIsLoading(false);
         setCurrentGroup({ ...data });
+      } else {
+        navigate('/*');
       }
     });
     // eslint-disable-next-line
