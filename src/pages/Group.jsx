@@ -9,11 +9,12 @@ import './Group.scss';
 export default function Group() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+
   const [currentGroup, setCurrentGroup] = useState({});
 
   let params = useParams();
-  useEffect(() => {
-    console.log(params.groupsId);
+
+  const getData = () => {
     onValue(ref(db, `${params.groupsId}/`), snapshot => {
       const data = snapshot.val();
       console.log(data);
@@ -24,6 +25,10 @@ export default function Group() {
         navigate('/*');
       }
     });
+  };
+  useEffect(() => {
+    getData();
+
     // eslint-disable-next-line
   }, []);
 
@@ -59,7 +64,7 @@ export default function Group() {
         <li
           className='table-header'
           style={{
-            width: `${100 / currentGroup.students.length}%`,
+            maxWidth: `${100 / (currentGroup.students.length + 1)}%`,
           }}
         >
           <div className='project-name'>{''}</div>
@@ -73,7 +78,7 @@ export default function Group() {
             <li
               className='table-row'
               style={{
-                width: `${100 / currentGroup.students.length}%`,
+                maxWidth: `${100 / (currentGroup.students.length + 1)}%`,
               }}
             >
               <div className='table-row-element'>{studentName}</div>
@@ -94,6 +99,13 @@ export default function Group() {
           );
         })}
       </ul>
+      {/* {isCommentPopUpVisible && (
+        <ReadComments
+          setIsCommentPopUpVisible={setIsCommentPopUpVisible}
+          // addComments={addComments}
+          // comments={comments}
+        />
+      )} */}
     </div>
   );
 }

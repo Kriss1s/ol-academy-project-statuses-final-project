@@ -6,7 +6,6 @@ export default function CommentPopup({
   setIsPopUpVisible,
   comments,
   addComments,
-  setComments,
 }) {
   const [commentText, setCommentText] = useState('');
   const refPopup = useRef();
