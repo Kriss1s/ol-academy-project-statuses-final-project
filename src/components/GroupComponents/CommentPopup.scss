@@ -1,0 +1,39 @@
+.popup-comment-message {
+  text-align: center;
+}
+.comment {
+  resize: none;
+  padding: 2%;
+  width: 80%;
+  min-height: 40%;
+  margin-top: 5%;
+  border-radius: 15px;
+  border: 1px solid rgba(46, 130, 236, 0.5);
+  box-shadow: 1px 1px 10px rgba(46, 130, 236, 0.5);
+}
+.popup-btn-wrapper {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  .comm-btn {
+    margin-right: 6%;
+    background-color: transparent;
+    color: white;
+    font-size: inherit;
+    width: 42%;
+    padding: 3% 0;
+    border-radius: 15px;
+    border: 1px solid rgba(46, 130, 236, 0.5);
+    box-shadow: 1px 1px 10px rgba(46, 130, 236, 0.5);
+    cursor: pointer;
+    transition: background-color 300ms ease-in-out;
+
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      background-color: rgba(46, 130, 236);
+    }
+  }
+}
