@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
 import { onValue, ref } from 'firebase/database';
 import { MdArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
 
-import GroupName from '../components/CreateGroupComponents/groupName';
-import AddStudent from '../components/CreateGroupComponents/AddStudent';
-import Student from '../components/CreateGroupComponents/Student';
-import Color from '../components/CreateGroupComponents/Color';
-import AddProject from '../components/CreateGroupComponents/AddProject';
-import Project from '../components/CreateGroupComponents/Project';
-import PopUp from '../components/CreateGroupComponents/PopUp';
+import GroupName from './CreateGroupComponents/groupName';
+import AddStudent from './CreateGroupComponents/AddStudent';
+import Student from './CreateGroupComponents/Student';
+import Color from './CreateGroupComponents/Color';
+import AddProject from './CreateGroupComponents/AddProject';
+import Project from './CreateGroupComponents/Project';
+import PopUp from './CreateGroupComponents/PopUp';
+
+import { db } from '../../firebase';
+import { mainStatusColors } from '../../utilities/colors';
 import './CreateGroup.scss';
 
 const progressSteps = 5;
@@ -23,12 +25,7 @@ const getLocalStorage = () => {
       id: '',
       groupName: '',
       students: [],
-      statuses: [
-        { id: 100, color: '#ff5630', meaning: '' },
-        { id: 200, color: '#c7c4bf', meaning: '' },
-        { id: 300, color: '#f5c661', meaning: '' },
-        { id: 400, color: '#4fb42b', meaning: '' },
-      ],
+      statuses: [...mainStatusColors],
       projects: [],
     };
   }
@@ -42,51 +39,47 @@ export default function CreateGroup() {
   const [groupNames, setGroupNames] = useState([]);
   const [isNameError, setIsNameError] = useState(false);
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
-
+  const validName = groupNames.every(
+    name => name !== newGroup.groupName.split(' ').join('').toLowerCase()
+  );
   useEffect(() => {
-    console.log(newGroup);
     onValue(ref(db), snapshot => {
       const data = snapshot.val();
-      // console.log(Object.keys(data));
+
       if (data !== null) {
         setGroupNames([...Object.keys(data)]);
       }
     });
-    // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
-    console.log(newGroup);
     localStorage.setItem('currentGroup', JSON.stringify(newGroup));
   }, [newGroup]);
 
   const handleButtonClick = direction => {
-    let num = progressStep;
+    let step = progressStep;
     if (direction === 'prev') {
-      num -= 1;
-    } else if (direction === 'next') {
-      if (num === 1) {
-        newGroup.groupName &&
-        groupNames.every(
-          name => name !== newGroup.groupName.split(' ').join('').toLowerCase()
-        )
-          ? (num += 1)
-          : setIsNameError(true);
-      } else if (num === 2) {
-        newGroup.students.length >= 1 && (num += 1);
-      } else if (num === 3) {
+      step -= 1;
+    }
+    if (direction === 'next') {
+      if (step === 1) {
+        newGroup.groupName && validName ? (step += 1) : setIsNameError(true);
+      } else if (step === 2) {
+        newGroup.students.length >= 1 && (step += 1);
+      } else if (step === 3) {
         Object.values(newGroup.statuses).every(item => item.meaning !== '') &&
-          (num += 1);
-      } else if (num === 4) {
-        newGroup.projects.length >= 1 && (num += 1);
+          (step += 1);
+      } else if (step === 4) {
+        newGroup.projects.length >= 1 && (step += 1);
       }
     }
-    if (num > progressSteps) {
-      num = progressSteps;
+    if (step > progressSteps) {
+      step = progressSteps;
     }
-    if (num < 1) {
-      num = 1;
+    if (step < 1) {
+      step = 1;
     }
-    setProgressStep(num);
+    setProgressStep(step);
   };
 
   return (
@@ -103,7 +96,6 @@ export default function CreateGroup() {
         ) : progressStep === 2 ? (
           <>
             <p>Students</p>
-            {/* {newGroup.students.length === 0 && ( */}
             <AddStudent setNewGroup={setNewGroup} newGroup={newGroup} />
 
             {newGroup.students.map((student, index) => (

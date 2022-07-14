@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { db } from '../firebase';
-import { onValue, ref } from 'firebase/database';
-
 import { BallTriangle } from 'react-loader-spinner';
-import Circle from '../components/GroupComponents/Circle';
+import { onValue, ref } from 'firebase/database';
+import { db } from '../../firebase';
+
+import Circle from './GroupComponents/Circle';
 import './Group.scss';
+
 export default function Group() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -14,23 +15,22 @@ export default function Group() {
 
   let params = useParams();
 
-  const getData = () => {
-    onValue(ref(db, `${params.groupsId}/`), snapshot => {
-      const data = snapshot.val();
-      console.log(data);
-      if (data !== null) {
-        setIsLoading(false);
-        setCurrentGroup({ ...data });
-      } else {
-        navigate('/*');
-      }
-    });
-  };
   useEffect(() => {
-    getData();
+    const getData = () => {
+      onValue(ref(db, `${params.groupsId}/`), snapshot => {
+        const data = snapshot.val();
+        console.log(data);
+        if (data !== null) {
+          setIsLoading(false);
+          setCurrentGroup({ ...data });
+        } else {
+          navigate('/*');
+        }
+      });
+    };
 
-    // eslint-disable-next-line
-  }, []);
+    getData();
+  }, [navigate, params.groupsId]);
 
   if (isLoading) {
     return (
@@ -85,8 +85,10 @@ export default function Group() {
               {studentProjects.map((singleProject, projectIndex) => (
                 <div className='table-row-element'>
                   <Circle
+                    key={(projectIndex + 1) * 55}
                     params={params.groupsId}
                     index={studentIndex}
+                    singleProject={singleProject}
                     projectIndex={projectIndex}
                     statuses={currentGroup.statuses}
                     {...singleProject}
@@ -99,13 +101,6 @@ export default function Group() {
           );
         })}
       </ul>
-      {/* {isCommentPopUpVisible && (
-        <ReadComments
-          setIsCommentPopUpVisible={setIsCommentPopUpVisible}
-          // addComments={addComments}
-          // comments={comments}
-        />
-      )} */}
     </div>
   );
 }

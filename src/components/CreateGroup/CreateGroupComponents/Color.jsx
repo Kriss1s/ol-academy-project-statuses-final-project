@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
   const [newColor, setNewColor] = useState(color);
   const [colorMeaning, setColorMeaning] = useState(meaning);
@@ -17,6 +18,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
     saveMeaning();
     // eslint-disable-next-line
   }, [colorMeaning]);
+
   useEffect(() => {
     const saveNewColor = () => {
       const newColors = [...newGroup.statuses];
@@ -32,6 +34,16 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
     // eslint-disable-next-line
   }, [newColor]);
 
+  const placeholder =
+    id === 100
+      ? `Default`
+      : id === 200
+      ? 'Check'
+      : id === 300
+      ? 'Improve'
+      : id === 400
+      ? 'Done'
+      : '';
   return (
     <>
       <div className='color-wrapper'>
@@ -40,7 +52,6 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
           type='color'
           value={newColor}
           onChange={e => {
-            // console.log(id);
             setNewColor(e.target.value);
           }}
         />
@@ -48,17 +59,7 @@ export default function Color({ id, color, meaning, newGroup, setNewGroup }) {
           className='color-meaning'
           type='text'
           value={colorMeaning}
-          placeholder={
-            id === 100
-              ? `Default`
-              : id === 200
-              ? 'Check'
-              : id === 300
-              ? 'Improve'
-              : id === 400
-              ? 'Done'
-              : ''
-          }
+          placeholder={placeholder}
           onChange={e => {
             setColorMeaning(e.target.value);
           }}

@@ -1,8 +1,10 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../firebase';
 import { ref, set } from 'firebase/database';
+
+import { db } from '../../../firebase';
 import './PopUp.scss';
+
 export default function PopUp({
   setIsPopUpVisible,
   clearLocalStorage,
@@ -29,7 +31,7 @@ export default function PopUp({
     newProjects = newProjects.map(project => {
       return { ...project, statusId: 100, comment: '' };
     });
-    let students = newGroup.students.map(item => {
+    const students = newGroup.students.map(item => {
       return { ...item, projects: [...newProjects] };
     });
 

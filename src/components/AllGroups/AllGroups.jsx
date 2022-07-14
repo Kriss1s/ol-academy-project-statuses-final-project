@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase';
 import { onValue, ref, remove } from 'firebase/database';
+
+import { db } from '../../firebase';
 
 import './AllGroups.scss';
 
@@ -19,6 +20,7 @@ export default function AllGroups() {
     }
     navigate('/groups');
   };
+
   useEffect(() => {
     onValue(ref(db), snapshot => {
       const data = snapshot.val();
@@ -27,9 +29,8 @@ export default function AllGroups() {
         setGroups([...Object.values(data)]);
       }
     });
-    console.log(groups);
-    // eslint-disable-next-line
   }, []);
+
   return (
     <div className='projects-container'>
       {groups !== null &&
