@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { db } from '../../firebase';
 import { ref, set } from 'firebase/database';
-import CommentPopup from './CommentPopup';
+import { db } from '../../../firebase';
+import CommentPopup from '../GroupComponents/CommentPopup';
+import CommentsBlock from './CommentsBlock';
 
 export default function Circle({
   index,
@@ -10,10 +11,12 @@ export default function Circle({
   statusId,
   params,
   comments,
+  singleProject,
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [posXY, setPosXY] = useState({ x: 0, y: 0 });
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+  const [isCommentsBlockVisible, setIsCommentsBlockVisible] = useState(false);
 
   const refCircle = useRef();
   const contextMenuRef = useRef();
@@ -30,7 +33,6 @@ export default function Circle({
   useEffect(() => {
     const handleHideMenu = e => {
       e.preventDefault();
-      // console.log(statuses.find(singleColor => singleColor.id === statusId));
       if (
         !refCircle.current?.contains(e.target) &&
         !contextMenuRef.current?.contains(e.target)
@@ -71,6 +73,7 @@ export default function Circle({
       <div
         ref={refCircle}
         className='circle'
+        onClick={() => setIsCommentsBlockVisible(true)}
         style={{
           backgroundColor: `${
             statuses.find(singleColor => singleColor.id === statusId).color
@@ -128,6 +131,13 @@ export default function Circle({
           setIsPopUpVisible={setIsPopUpVisible}
           addComments={addComments}
           comments={comments}
+        />
+      )}
+      {isCommentsBlockVisible && comments !== '' && (
+        <CommentsBlock
+          setIsCommentsBlockVisible={setIsCommentsBlockVisible}
+          comments={comments}
+          singleProject={singleProject}
         />
       )}
     </>

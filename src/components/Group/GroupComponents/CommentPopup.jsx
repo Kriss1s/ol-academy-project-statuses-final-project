@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import './CommentPopup.scss';
-import { useState } from 'react';
+
 export default function CommentPopup({
   setIsPopUpVisible,
   comments,

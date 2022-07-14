@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
-import CreateGroup from './pages/CreateGroup';
-import StartCreate from './pages/StartCreate';
-import AllGroups from './pages/AllGroups';
-import Group from './pages/Group';
-import ErrorPage from './pages/ErrorPage';
-import './App.scss';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+
+import HomePage from './components/Home/HomePage';
+import CreateGroup from './components/CreateGroup/CreateGroup';
+import StartCreate from './components/StartCreate/StartCreate';
+import AllGroups from './components/AllGroups/AllGroups';
+import Group from './components/Group/Group';
+import ErrorPage from './components/ErrorPage/ErrorPage';
+import './App.scss';
 
 function App() {
   return (

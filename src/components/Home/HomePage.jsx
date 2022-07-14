@@ -1,23 +1,14 @@
 import { BiHomeHeart } from 'react-icons/bi';
 import { HiUserGroup } from 'react-icons/hi';
 
-import { useEffect, useState } from 'react';
-
 import { Outlet, NavLink } from 'react-router-dom';
+
+import useWindowSize from '../../utilities/useWindowSize';
 import './HomePage.scss';
 
 export default function HomePage() {
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const windowSize = useWindowSize();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, [windowSize]);
   return (
     <>
       <nav>
