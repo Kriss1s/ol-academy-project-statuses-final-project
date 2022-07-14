@@ -13,9 +13,6 @@ export default function Student({ student, index, setNewGroup, newGroup }) {
     <div className='student'>
       <div>{student.name}</div>
       <div className='btn-student-container'>
-        <button className='btn-student'>
-          <BsPencil />
-        </button>
         <button className='btn-student' onClick={() => deleteStudent(student)}>
           <FaUserMinus />
         </button>
